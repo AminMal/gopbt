@@ -10,14 +10,14 @@ import (
 
 const complexSize = 50
 
-type structAdhocGenerator struct {
+type simpleAdhocGenerator struct {
 	s                *Session
 	t                reflect.Type
 	structFieldTypes []reflect.Type
 }
 
 // todo, check if this re-creates adhoc generators everytime
-func (sag *structAdhocGenerator) GenerateOne() reflect.Value {
+func (sag *simpleAdhocGenerator) GenerateOne() reflect.Value {
 	v := reflect.New(sag.t).Elem()
 
 	for i, ft := range sag.structFieldTypes {
@@ -39,7 +39,7 @@ func (sag *structAdhocGenerator) GenerateOne() reflect.Value {
 	return v
 }
 
-func (sag *structAdhocGenerator) GenerateN(n uint) []reflect.Value {
+func (sag *simpleAdhocGenerator) GenerateN(n uint) []reflect.Value {
 	values := make([]reflect.Value, n, n)
 	for i := uint(0); i < n; i++ {
 		values[i] = sag.GenerateOne()
@@ -52,11 +52,15 @@ func (s *Session) adhocValueGenerator(t reflect.Type, size int) (anyGen, bool) {
 		return nil, false // if we cannot instantiate now, we cannot also create generators
 	} else {
 		// we're sure that we can create instances now, we can safely ignore the `ok` in adhocGenerator.Generate functions
-		fieldTypes := make([]reflect.Type, t.NumField(), t.NumField())
-		for i := 0; i < t.NumField(); i++ {
-			fieldTypes[i] = t.Field(i).Type
+		if t.Kind() == reflect.Struct {
+			fieldTypes := make([]reflect.Type, t.NumField(), t.NumField())
+			for i := 0; i < t.NumField(); i++ {
+				fieldTypes[i] = t.Field(i).Type
+			}
+			return &simpleAdhocGenerator{s, t, fieldTypes}, true
+		} else {
+			return &simpleAdhocGenerator{s, t, nil}, true
 		}
-		return &structAdhocGenerator{s, t, fieldTypes}, true
 	}
 }
 
@@ -68,7 +72,7 @@ func (s *Session) generateSizedGeneratorAndValue(t reflect.Type, size int) (gen 
 		for i := 0; i < t.NumField(); i++ {
 			fieldTypes[i] = t.Field(i).Type
 		}
-		gen = &structAdhocGenerator{s, t, fieldTypes}
+		gen = &simpleAdhocGenerator{s, t, fieldTypes}
 		value = gen.GenerateOne()
 		ok = true
 		return
