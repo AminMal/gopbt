@@ -1,28 +1,10 @@
 package gopbt
 
 import (
-	"fmt"
 	"reflect"
 
 	"github.com/AminMal/gopbt/gen"
 )
-
-// ---- todo, use custom structs to represent errors
-func typeGenNotFound(typeName string) error {
-	return fmt.Errorf("could not find an appropriate instance of `gen.Generator[%s]`", typeName)
-}
-
-func duplicatedTypeGen(typeName string) error {
-	return fmt.Errorf("duplicate type generator for `gen.Generator[%s]`, you can use .OverrideGen on Session instead", typeName)
-}
-
-func incompatibleTypes(expectedType, actualType string) error {
-	return fmt.Errorf(
-		"incompatible generator types, expected: %s, actual: %s", expectedType, actualType,
-	)
-}
-
-// ----- end todo
 
 type anyGen interface {
 	gen.Generator[reflect.Value]

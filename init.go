@@ -16,12 +16,10 @@ var defaultConfig quick.Config
 var primitiveGenerators map[string]anyGen
 
 var defaultAlphabet string
-var defaultAlphabetLength int
 var defaultStringGen gen.Generator[string]
 
 func init() {
 	defaultAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-_=+?/`~\"\\:;"
-	defaultAlphabetLength = len(defaultAlphabet)
 	defaultStringGen = gen.StringGen(defaultAlphabet, uint(0), uint(complexSize))
 
 	primitiveGenerators = map[string]anyGen{

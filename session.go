@@ -44,6 +44,7 @@ func functionAndType(f any) (v reflect.Value, t reflect.Type, ok bool) {
 }
 
 func toInterfaces(values []reflect.Value) []any {
+	// Copy-paste from testing/quick
 	ret := make([]any, len(values))
 	for i, v := range values {
 		ret[i] = v.Interface()
@@ -121,7 +122,7 @@ func (s *Session) Check(f any, conf *quick.Config) error {
 		}
 
 		if !fVal.Call(arguments)[0].Bool() {
-			return &quick.CheckError{i + 1, toInterfaces(arguments)}
+			return &quick.CheckError{Count: i + 1, In: toInterfaces(arguments)}
 		}
 	}
 

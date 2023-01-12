@@ -16,6 +16,7 @@ type structAdhocGenerator struct {
 	structFieldTypes []reflect.Type
 }
 
+// todo, check if this re-creates adhoc generators everytime
 func (sag *structAdhocGenerator) GenerateOne() reflect.Value {
 	v := reflect.New(sag.t).Elem()
 
