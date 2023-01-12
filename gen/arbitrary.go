@@ -3,38 +3,30 @@ package gen
 import "math"
 
 // ------ int types ------
-func ArbitraryInt() Generator[int] { return Between((math.MinInt/2 + 1), (math.MaxInt/2 - 1)) }
+var ArbitraryInt Generator[int] = Between((math.MinInt/2 + 1), (math.MaxInt/2 - 1))
 
-func ArbitraryInt32() Generator[int32] {
-	return Between(int32(math.MinInt32)/2+1, int32(math.MaxInt32)/2-1)
-}
+var ArbitraryInt32 Generator[int32] = Between(int32(math.MinInt32)/2+1, int32(math.MaxInt32)/2-1)
 
-func ArbitraryInt64() Generator[int64] {
-	return Between(int64(math.MinInt64)/2+1, int64(math.MaxInt64)/2-1)
-}
+var ArbitraryInt64 Generator[int64]  = Between(int64(math.MinInt64)/2+1, int64(math.MaxInt64)/2-1)
 
 // ------ uint types ------
-func ArbitraryUint() Generator[uint] { return Between(uint(0), uint(math.MaxUint)) }
+var ArbitraryUint Generator[uint] = Between(uint(0), uint(math.MaxUint))
 
-func ArbitraryUint8() Generator[uint8] { return Between(uint8(0), uint8(math.MaxUint8)) }
+var ArbitraryUint8 Generator[uint8] = Between(uint8(0), uint8(math.MaxUint8))
 
-func ArbitraryUint16() Generator[uint16] { return Between(uint16(0), uint16(math.MaxUint16)) }
+var ArbitraryUint16 Generator[uint16] = Between(uint16(0), uint16(math.MaxUint16))
 
-func ArbitraryUint32() Generator[uint32] { return Between(uint32(0), uint32(math.MaxUint32)) }
+var ArbitraryUint32 Generator[uint32] = Between(uint32(0), uint32(math.MaxUint32))
 
-func ArbitraryUint64() Generator[uint64] { return Between(uint64(0), uint64(math.MaxUint64)) }
+var ArbitraryUint64 Generator[uint64] = Between(uint64(0), uint64(math.MaxUint64))
 
 // ------ float types ------
-func ArbitraryFloat32() Generator[float32] {
-	return Between(float32(math.MinInt32)/2+1, float32(math.MaxInt32)/2-1)
-}
+var ArbitraryFloat32 Generator[float32] = Between(float32(math.MinInt32)/2+1, float32(math.MaxInt32)/2-1)
 
-func ArbitraryFloat64() Generator[float64] {
-	return Between(float64(math.MinInt64)/2+1, float64(math.MaxInt64)/2-1)
-}
+var ArbitraryFloat64 Generator[float64] = Between(float64(math.MinInt64)/2+1, float64(math.MaxInt64)/2-1)
 
 // ------ rune ------
-func ArbitraryRune() Generator[rune] { return ArbitraryInt32() }
+var ArbitraryRune Generator[rune] = ArbitraryInt32
 
 // ------ string ------
 
