@@ -119,6 +119,7 @@ func (r *between[T]) GenerateN(n uint) []T {
 	return res
 }
 
+// check overflow possibilities
 func Between[T Numeric](min, max T) Generator[T] {
 	actualMin := numericMin(min, max)
 	actualMax := numericMax(min, max)

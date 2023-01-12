@@ -98,7 +98,9 @@ func validateFunctionType(fType reflect.Type) error {
 	return nil
 }
 
-func (s *Session) Check(f any, conf *quick.Config) error {
+type FunctionReturningBool = any
+
+func (s *Session) Check(f FunctionReturningBool, conf *quick.Config) error {
 	if conf == nil {
 		conf = &defaultConfig
 	}
